@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { signup, signInWithGoogle } from "../helpers/auth";
+import { signup, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
 
 const SignUp = () => {
   const [error, setError] = React.useState(null);
@@ -28,6 +28,14 @@ const SignUp = () => {
   const googleSignIn = async () => {
     try {
       await signInWithGoogle();
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const githubSignIn = async () => {
+    try {
+      await signInWithGitHub();
     } catch (error) {
       setError(error.message);
     }
@@ -65,6 +73,10 @@ const SignUp = () => {
           <p>Or</p>
           <button onClick={googleSignIn} type="button">
             Sign up with Google
+          </button>
+          <p>Or</p>
+          <button type="button" onClick={githubSignIn}>
+            Sign up with GitHub
           </button>
         </div>
         <hr></hr>
