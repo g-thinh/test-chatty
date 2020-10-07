@@ -1,9 +1,10 @@
 import firebase from "firebase";
+require("dotenv").config();
 
 const config = {
-  apiKey: "AIzaSyAzTKXI3OtyR63wmjbfwWJYMh6-CDs59WM",
-  authDomain: "test-chatty.firebaseapp.com",
-  databaseURL: "https://test-chatty.firebaseio.com",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.DOMAIN,
+  databaseURL: process.env.DB_BASE_URL,
 };
 firebase.initializeApp(config);
 export const auth = firebase.auth;
