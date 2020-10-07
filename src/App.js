@@ -11,8 +11,44 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { auth } from "./services/firebase";
 
-function App() {
-  return <h1>Hello World!</h1>;
+// ########################## HOC WRAPPING COMPONENTS #################################
+
+function PrivateRoute({ component: Component, authenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authenticated === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
 }
+
+function PublicRoute({ component: Component, authenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authenticated === false ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/chat" />
+        )
+      }
+    />
+  );
+}
+
+// ##################################################################################
+
+const App = () => {
+  return <h1>App</h1>;
+};
 
 export default App;
