@@ -48,7 +48,45 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
 // ##################################################################################
 
 const App = () => {
-  return <h1>App</h1>;
-};
+  const [loading, setLoading] = React.useState(true);
+  const [authenticated, setAuthenticated] = React.useState(false);
 
+  React.useEffect(() => {
+    console.log("[Apps.js] Mounted");
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        setLoading(false);
+        setAuthenticated(true);
+      } else {
+        setLoading(false);
+        setAuthenticated(false);
+      }
+    });
+  }, []);
+
+  return loading === true ? (
+    <h2>Loading...</h2>
+  ) : (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home}></Route>
+        <PrivateRoute
+          path="/chat"
+          authenticated={authenticated}
+          component={Chat}
+        ></PrivateRoute>
+        <PublicRoute
+          path="/signup"
+          authenticated={authenticated}
+          component={Signup}
+        ></PublicRoute>
+        <PublicRoute
+          path="/login"
+          authenticated={authenticated}
+          component={Login}
+        ></PublicRoute>
+      </Switch>
+    </Router>
+  );
+};
 export default App;
