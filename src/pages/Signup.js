@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { signup } from "../helpers/auth";
+import { signup, signInWithGoogle } from "../helpers/auth";
 
 const SignUp = () => {
   const [error, setError] = React.useState(null);
@@ -20,6 +20,14 @@ const SignUp = () => {
     setError("");
     try {
       await signup(email, password);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const googleSignIn = async () => {
+    try {
+      await signInWithGoogle();
     } catch (error) {
       setError(error.message);
     }
@@ -54,6 +62,10 @@ const SignUp = () => {
         <div>
           {error ? <p>{error}</p> : null}
           <button type="submit">Sign up</button>
+          <p>Or</p>
+          <button onClick={googleSignIn} type="button">
+            Sign up with Google
+          </button>
         </div>
         <hr></hr>
         <p>

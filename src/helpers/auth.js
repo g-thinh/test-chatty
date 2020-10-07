@@ -10,3 +10,8 @@ export const signup = (email, password) => {
 export const signin = (email, password) => {
   return auth().signInWithEmailAndPassword(email, password);
 };
+
+export function signInWithGoogle() {
+  const provider = new auth.GoogleAuthProvider();
+  return auth().signInWithPopup(provider);
+}
