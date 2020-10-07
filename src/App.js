@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
-import Signup from "./pages/Signup";
+import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
 import { auth } from "./services/firebase";
 
@@ -78,7 +78,7 @@ const App = () => {
         <PublicRoute
           path="/signup"
           authenticated={authenticated}
-          component={Signup}
+          component={SignUp}
         ></PublicRoute>
         <PublicRoute
           path="/login"
